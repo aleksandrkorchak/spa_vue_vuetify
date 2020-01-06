@@ -65,9 +65,11 @@ export default {
         const ad = {
           title: this.title,
           description: this.description,
-          promo: this.promo
+          promo: this.promo,
+          imageSrc: 'https://www.factweavers.com/blog/wp-content/uploads/2018/02/vuejs.png'
         }
-        console.log(ad)
+
+        this.$store.dispatch('createAd', ad)
       }
     }
   }

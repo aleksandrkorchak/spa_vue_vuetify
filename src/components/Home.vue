@@ -49,7 +49,7 @@
             <v-spacer/>
             <v-btn
               text
-              :to="'/ad/' + ad.i"
+              :to="'/ad/' + ad.id"
             >Open</v-btn>
 
             <v-btn

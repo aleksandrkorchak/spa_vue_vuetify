@@ -42,10 +42,23 @@ export default {
     },
     myAds (state) {
       return state.ads
+    },
+    adById (state) {
+      return adId => {
+        return state.ads.find(ad => ad.id === adId)
+      }
     }
   },
   mutations: {
+    createAd (state, payload) {
+      state.ads.push(payload)
+    }
   },
   actions: {
+    createAd ({ commit }, payload) {
+      payload.id = '1234567'
+
+      commit('createAd', payload)
+    }
   }
 }
