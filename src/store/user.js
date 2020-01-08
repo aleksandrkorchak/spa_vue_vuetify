@@ -12,6 +12,7 @@ export default {
   },
   mutations: {
     setUser (state, payload) {
+      console.log(payload)
       state.user = payload
     }
   },
@@ -38,23 +39,26 @@ export default {
       //   commit('setError', error.message)
       // })
     },
-    async loginUser ({ commit }, { email, password }) {
+    loginUser ({ commit, getters }, { email, password }) {
       commit('clearError')
       commit('setLoading', true)
 
-      try {
-        const user = await fb.auth().signInWithEmailAndPassword(email, password)
-        commit('setUser', new User(user.uid))
-        commit('setLoading', false)
-      } catch (error) {
-        commit('setLoading', false)
-        commit('setError', error.message)
-        throw error
-      }
+      fb.auth().signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          console.log('auth promise is ' + user.uid)
+          commit('setUser', new User(user.uid))
+          commit('setLoading', false)
+        })
+        .catch(error => {
+          commit('setLoading', false)
+          commit('setError', error.message)
+        })
     },
+
     autoLoginUser ({ commit }, payload) {
       commit('setUser', new User(payload.uid))
     },
+
     logoutUser ({ commit }) {
       fb.auth().signOut()
       commit('setUser', null)
@@ -62,6 +66,7 @@ export default {
   },
   getters: {
     user (state) {
+      console.log('I am getter user. state.user is ' + state.user)
       return state.user
     },
     isUserLoggedIn (state) {
