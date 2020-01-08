@@ -25,11 +25,23 @@
           <v-col sm="12">
             <v-btn
               class="mb-3 white--text warning"
+              @click="triggerUpload"
             >
               Upload
               <v-icon right dark>mdi-cloud-upload</v-icon>
             </v-btn>
-            <v-img src="https://cdn.vuetifyjs.com/images/carousel/planet.jpg" height="100px"/>
+            <input
+              ref="fileInput"
+              type="file"
+              style="display: none;"
+              accept="image/*"
+              @change="onFileChange"
+            >
+            <v-img
+              v-if="imageSrc"
+              :src="imageSrc"
+              height="100px"
+            />
             <v-switch
               color="primary"
               v-model="promo"
@@ -38,7 +50,7 @@
 
             <v-spacer/>
             <v-btn
-              :disabled="!valid || loading"
+              :disabled="!valid || !image || loading"
               :loading="loading"
               class="success"
               @click="createAd"
@@ -57,7 +69,9 @@ export default {
       title: '',
       description: '',
       promo: false,
-      valid: false
+      valid: false,
+      image: null,
+      imageSrc: ''
     }
   },
   computed: {
@@ -67,12 +81,12 @@ export default {
   },
   methods: {
     createAd () {
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && this.image) {
         const ad = {
           title: this.title,
           description: this.description,
           promo: this.promo,
-          imageSrc: 'https://www.factweavers.com/blog/wp-content/uploads/2018/02/vuejs.png'
+          image: this.image
         }
 
         this.$store.dispatch('createAd', ad)
@@ -81,6 +95,21 @@ export default {
           })
           .catch(() => {})
       }
+    },
+
+    triggerUpload () {
+      this.$refs.fileInput.click()
+    },
+
+    onFileChange (event) {
+      const file = event.target.files[0]
+
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.imageSrc = reader.result
+      }
+      reader.readAsDataURL(file)
+      this.image = file
     }
   }
 }
