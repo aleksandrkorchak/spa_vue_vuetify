@@ -98,15 +98,14 @@ export default {
 }
 </script>
 
-<style scoped>
-  .car-link {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    background: rgba(0, 0, 0, .3);
-    transform: translate(-50%, 0);
-    padding: 10px 20px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
+<style scoped lang="sass">
+  .car-link
+    position: absolute
+    bottom: 50px
+    left: 50%
+    background: rgba(0, 0, 0, .3)
+    transform: translate(-50%, 0)
+    padding: 10px 20px
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
 </style>
