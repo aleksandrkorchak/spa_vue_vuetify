@@ -51,12 +51,14 @@
               text
               :to="'/ad/' + ad.id"
             >Open</v-btn>
+<!--        Button "Buy"-->
+            <app-buy-modal :ad="ad"/>
 
-            <v-btn
-              class="primary"
-            >
-              Buy
-            </v-btn>
+<!--            <v-btn-->
+<!--              class="primary"-->
+<!--            >-->
+<!--              Buy-->
+<!--            </v-btn>-->
 
           </v-card-actions>
         </v-card>
