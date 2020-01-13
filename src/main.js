@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+
 import BuyModalComponent from '@/components/Shared/BuyModal'
 import * as fb from 'firebase'
 import '@babel/polyfill'
